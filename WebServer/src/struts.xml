@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The core configuration file for the framework is the default (struts.xml) file
+and should reside on the classpath of the webapp (generally /WEB-INF/classes). -->
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+  <!-- devMode equals debug information and reload everything for every request -->
+  <constant name="struts.action.excludePattern" value="/wsSocket" />
+  <constant name="struts.devMode" value="true" />
+  <constant name="struts.ui.theme" value="simple" />
+
+  <package name="ws" extends="struts-default">
+	
+	<default-action-ref name="index" />
+	
+	<global-results>
+		<result name="error">/error.jsp</result>
+	</global-results>
+
+	<!-- all exceptions not caught by the application will lead to error.jsp -->
+	<global-exception-mappings>
+		<exception-mapping exception="java.lang.Exception" result="error" />
+	</global-exception-mappings>
+
+	<!-- 'index' action leads to the view provided by index.jsp -->
+    <action name="index">
+      <result>/index.jsp</result>
+    </action>
+    
+    <action name="logout">
+      <result>/index.jsp</result>
+    </action>
+    
+    <action name="register">
+      <result>/register.jsp</result>
+    </action>
+    
+    <action name="home">
+      <result>/home.jsp</result>
+    </action>
+
+	<!-- 'login' action calls 'execute' in 'LoginAction' -->
+    <action name="login" class="ws.action.LoginAction" method="execute">
+      <result type="redirectAction" name="success">home</result>
+      <result name="error">/index.jsp</result>
+    </action>
+    
+    <action name="register2" class="ws.action.RegisterAction" method="execute">
+      <result name="success">/home.jsp</result>
+      <result name="error">/register.jsp</result>
+    </action>
+    
+    <action name="createAuction" class="ws.action.cAuctionAction" method="execute">
+    	<result name="success">/home.jsp</result>
+        <result name="error">/createAuction.jsp</result>
+    </action>
+    
+    <action name="editAuction" class="ws.action.EditAuctionAction" method="execute">
+        <result name="success">/home.jsp</result>
+        <result name="error">/editAuction.jsp</result>
+    </action>
+    
+    <action name="searchCodeAuction" class="ws.action.SearchCodeAction" method="execute">
+        <result name="success">/displayCode.jsp</result>
+        <result name="error">/displayCode.jsp</result>
+    </action>
+    
+    <action name="searchIdAuction" class="ws.action.SearchIdAction" method="execute">
+        <result name="success">/displayId.jsp</result>
+        <result name="error">/displayId.jsp</result>
+    </action>
+    
+    <action name="myAuction" class="ws.action.ListarMyAuctionsAction" method="execute">
+        <result name="success">/listLeiloes.jsp</result>
+        <result name="error">/home.jsp</result>
+    </action>
+    
+    <action name="offmessages" class="ws.action.ListarMsgOffAction" method="execute">
+        <result name="success">/listMsgOff.jsp</result>
+        <result name="error">/home.jsp</result>
+    </action>
+    
+    <action name="sendMessage" class="ws.action.SendMessageAction" method="execute">
+        <result type="redirectAction" name="success">searchIdAuction?id=${idMsg}</result>
+        <result name="error">/displayId.jsp</result>
+    </action>
+    
+    <action name="makeBid" class="ws.action.MakeBidAction" method="execute">
+        <result type="redirectAction" name="success">searchIdAuction?id=${idBid}</result>
+        <result name="error">/displayId.jsp</result>
+    </action>
+    
+    <action name="onlineUsers" class="ws.action.OnlineUsersAction" method="execute">
+        <result name="success">/listOnlineUsers.jsp</result>
+        <result name="error">/home.jsp</result>
+    </action>
+
+  </package>
+
+</struts>
