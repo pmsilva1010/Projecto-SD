@@ -1,0 +1,4 @@
+TCP1
+rmi://localhost:1099/ProjectoSD
+rmi://localhost:1099/ProjectoSD
+7000

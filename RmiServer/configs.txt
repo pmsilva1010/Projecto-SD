@@ -1,0 +1,4 @@
+usersBD
+leiloesBD
+histBD
+idCount.txt
